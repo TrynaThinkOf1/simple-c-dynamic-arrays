@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "String.h"
-#include "IntArray.h"
+#include "headers/String.h"
+#include "headers/IntArray.h"
 
 /////////////////////
 void printIntArray(IntArray* arr) {
@@ -31,6 +31,12 @@ int main() {
 
 	charAppendString(str, "d!");
 	printf("┃ APPEND CHAR* (\"d!\")        str: %s | size: %lu ┃\n", getStringData(str), getStringSize(str));
+
+	ssize_t fidx = stringFirstIndexOf(str, 'o');
+	printf("┃ FIRST INDEX OF 'o'         idx: %zd                        ┃\n", fidx);
+	
+	ssize_t lidx = stringLastIndexOf(str, 'o');
+	printf("┃ LAST INDEX OF 'o'          idx: %zd                        ┃\n", lidx);
 
 	String* substr = createSubstring(str, 7, 12);
 	printf("┃ SUBSTRING (7 - 12)         substr: %s                 ┃\n", getStringData(substr));
@@ -71,6 +77,12 @@ int main() {
 	printf("┃ APP. INT*         arr: ");
 	printIntArray(arr);
 	printf(" | size: %lu  ┃\n", getIntArraySize(arr));
+
+	ssize_t fidx = intArrayFirstIndexOf(arr, 4);
+	printf("┃ FIRST IDX OF 4    idx: %zd                                           ┃\n", fidx);
+
+	ssize_t lidx = intArrayLastIndexOf(arr, 60);
+	printf("┃ LAST IDX OF 60    idx: %zd                                          ┃\n", lidx);
 
 	IntArray* subseq = createSubsequence(arr, 2, 6);
 	printf("┃ SUBSEQ. (2 - 6)   subseq: ");
