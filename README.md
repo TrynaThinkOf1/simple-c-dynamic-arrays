@@ -1,14 +1,16 @@
 To use, simple download the .h files above and put them into the same directory.
 
-my_project
-|
-|--include
-    |--dynamic_arrays
-        |-String.h
-        |-NumberArrays.h
-        |-2DArrays.h
-	|--other_include_dirs
-		|-file.h
-|--src
-	|-main.c
-	|-file.c
+```
+.
+├── include
+│   ├── dynamic_arrays
+│   │   ├── 2DArrays.h
+│   │   ├── NumberArrays.h
+│   │   └── String.h
+│   ├── other
+│   │   └── file.h
+│   └── utils.h
+└── src
+    ├── file.c
+    └── main.c
+```
