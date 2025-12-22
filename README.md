@@ -1,4 +1,5 @@
-To use, simple download the .h files above and put them into the same directory.
+To use, simply download any or all of the .h files above and add them to your project.
+They all only depend on the C standard library.
 
 ```
 .

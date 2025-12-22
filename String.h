@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 /// NON-SPECIFIC UTILITIES ///
-size_t len(char* arr) {
+size_t str_len(char* arr) {
 	size_t l = 0;
 	while (*arr != '\0') {
 		arr++;
@@ -13,10 +13,9 @@ size_t len(char* arr) {
 /////////////////////
 typedef struct {
 	size_t __size;
+	size_t __end;
 
 	char* __data;
-
-	size_t __end;
 } String;
 /////////////////////
 
@@ -43,7 +42,7 @@ static void resizeString(String* str, size_t new_size) {
 }
 
 static void charAppendString(String* str, char* app) {
-	size_t app_len = len(app);
+	size_t app_len = str_len(app);
 	
 	if (str->__size < str->__end + app_len) {
 		resizeString(str, str->__end + app_len);
@@ -61,14 +60,13 @@ static void stringAppendString(String* str, String* app) {
 
 static String* createSubstring(String* str, size_t begindex, size_t endex) {
 	String* new_str = (String*)(malloc(sizeof(String)));
-	new_str->__end = new_str->__size;
 
 	resizeString(new_str, endex - begindex);
 
-	size_t idx = 0;
+	new_str->__end = 0;
 	for (size_t i = begindex; i < endex; i++) {
-		new_str->__data[idx] = str->__data[i];
-		idx++;
+		new_str->__data[new_str->__end] = str->__data[i];
+		new_str->__end++;
 	}
 
 	return new_str;
@@ -79,8 +77,8 @@ static String* createSubstring(String* str, size_t begindex, size_t endex) {
 /// CONSTRUCTORS & DESTRUCTORS ///
 static String* createString(char* initial) {
 	String* new_str = (String*)(malloc(sizeof(String)));
-	new_str->__size = len(initial);
-	new_str->__end = len(initial);
+	new_str->__size = str_len(initial);
+	new_str->__end = str_len(initial);
 
 	resizeString(new_str, new_str->__size);
 
