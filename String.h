@@ -105,3 +105,13 @@ static void destroyString(String* str) {
 	free(str);
 }
 /// ///
+
+bool compareStrings(String* a, String* b) {
+	size_t len = (a->__end <= b->__end ? a->__end : b->__end);
+	
+	for (int i = 0; i < len; i++) {
+		if (a->__data[i] != b->__data[i]) return false;
+	}
+
+	return true;
+}
