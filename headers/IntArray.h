@@ -32,8 +32,18 @@ int intArrayAt(IntArray* arr, size_t idx) {
 	return arr->__data[idx];
 }
 
-size_t intArrayFirstIndexOf(IntArray* arr, int to_find) {}
-size_t intArrayLastIndexOf(IntArray* arr, int to_find) {}
+ssize_t intArrayFirstIndexOf(IntArray* arr, int to_find) {
+	for	(int i = 0; i < arr->__end; i++) {
+		if (arr->__data[i] == to_find) return i;
+	}
+	return -1;
+}
+ssize_t intArrayLastIndexOf(IntArray* arr, int to_find) {
+	for (int i = arr->__end - 1; i >= 0; i--) {
+		if (arr->__data[i] == to_find) return i;
+	}
+	return -1;
+}
 /// ///
 
 
