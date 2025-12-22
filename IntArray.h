@@ -1,15 +1,6 @@
 #include <stdlib.h>
 #include <limits.h>
-
-/// NON-SPECIFIC UTILITIES ///
-size_t intarr_len(int* arr) {
-	size_t l = 0;
-	while (*arr != INT_MAX) {
-		arr++;
-		l++;
-	}
-	return l;
-}
+#include <stdbool.h>
 
 /////////////////////
 typedef struct {
@@ -33,18 +24,27 @@ static size_t getIntArraySize(IntArray* arr) {
 static size_t getIntArrayEnd(IntArray* arr) {
 	return arr->__end;
 }
+
+int intArrayAt(IntArray* arr, size_t idx) {
+	if (idx < 0 || idx >= arr->__end) {
+		return INT_MIN;
+	}
+	return arr->__data[idx];
+}
+
+size_t intArrayFirstIndexOf(IntArray* arr, int to_find) {}
+size_t intArrayLastIndexOf(IntArray* arr, int to_find) {}
 /// ///
 
 
 /// MODIFIERS ///
 static void resizeIntArray(IntArray* arr, size_t new_size) {
+	if (new_size < arr->__size) arr->__end = new_size;
 	arr->__size = new_size;
-	arr->__data = realloc(arr->__data, arr->__size);
+	arr->__data = realloc(arr->__data, arr->__size * sizeof(int));
 }
 
-static void intAppendIntArray(IntArray* arr, int* app) {
-	size_t app_len = intarr_len(app);
-
+static void intAppendIntArray(IntArray* arr, int* app, int app_len) {
 	if (arr->__size < arr->__end + app_len) {
 		resizeIntArray(arr, arr->__end + app_len);
 	}
@@ -56,7 +56,7 @@ static void intAppendIntArray(IntArray* arr, int* app) {
 }
 
 static void intArrayAppendIntArray(IntArray* arr, IntArray* app) {
-	intAppendIntArray(arr, app->__data);
+	intAppendIntArray(arr, app->__data, app->__end);
 }
 
 static IntArray* createSubsequence(IntArray* arr, size_t begindex, size_t endex) {
@@ -76,10 +76,10 @@ static IntArray* createSubsequence(IntArray* arr, size_t begindex, size_t endex)
 
 
 /// CONSTRUCTORS & DESTRUCTORS ///
-static IntArray* createIntArray(int* initial) {
-	IntArray* new_arr = (String*)(malloc(sizeof(String)));
-	new_arr->__size = intarr_len(initial);
-	new_arr->__end = intarr_len(initial);
+static IntArray* createIntArray(int* initial, int initial_length) {
+	IntArray* new_arr = (IntArray*)(malloc(sizeof(IntArray)));
+	new_arr->__size = initial_length;
+	new_arr->__end = initial_length;
 
 	resizeIntArray(new_arr, new_arr->__size);
 
@@ -91,7 +91,7 @@ static IntArray* createIntArray(int* initial) {
 }
 
 static IntArray* copyIntArray(IntArray* arr) {
-	return createIntArray(arr->__data);
+	return createIntArray(arr->__data, arr->__end);
 }
 
 //

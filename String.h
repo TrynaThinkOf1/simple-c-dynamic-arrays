@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdbool.h>
 
 /// NON-SPECIFIC UTILITIES ///
 size_t str_len(char* arr) {
@@ -32,11 +33,15 @@ static size_t getStringSize(String* str) {
 static size_t  getStringEnd(String* str) {
 	return str->__end;
 }
+
+size_t stringFirstIndexOf(String* str, char to_find) {}
+size_t stringLastIndexOf(String* str, char to_find) {}
 ///
 
 
 /// MODIFIERS ///
 static void resizeString(String* str, size_t new_size) {
+	if (new_size < str->__size) str->__end = new_size;
 	str->__size = new_size;
 	str->__data = realloc(str->__data, str->__size);
 }
