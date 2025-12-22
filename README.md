@@ -1,4 +1,4 @@
-To use, simply download any or all of the .h files above and add them to your project.
+To use, simply download any or all of the .h files inside of headers/ and add them to your project.
 They all only depend on the C standard library.
 
 ```
