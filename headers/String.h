@@ -35,13 +35,14 @@ static size_t  getStringEnd(String* str) {
 }
 
 ssize_t stringFirstIndexOf(String* str, char to_find) {
-	for (int i = 0; i < str->__end; i++) {
+	for (size_t i = 0; i < str->__end; i++) {
 		if (str->__data[i] == to_find) return i;
 	}
 	return -1;
 }
 ssize_t stringLastIndexOf(String* str, char to_find) {
-	for (int i = str->__end - 1; i >= 0; i--) {
+	// ssize_t -- needs to be signed or the loop is infinite
+	for (ssize_t i = str->__end - 1; i >= 0; i--) {
 		if (str->__data[i] == to_find) return i;
 	}
 	return -1;

@@ -33,13 +33,14 @@ int intArrayAt(IntArray* arr, size_t idx) {
 }
 
 ssize_t intArrayFirstIndexOf(IntArray* arr, int to_find) {
-	for	(int i = 0; i < arr->__end; i++) {
+	for	(size_t i = 0; i < arr->__end; i++) {
 		if (arr->__data[i] == to_find) return i;
 	}
 	return -1;
 }
 ssize_t intArrayLastIndexOf(IntArray* arr, int to_find) {
-	for (int i = arr->__end - 1; i >= 0; i--) {
+	// ssize_t -- needs to be signed or the loop is infinite
+	for (ssize_t i = arr->__end - 1; i >= 0; i--) {
 		if (arr->__data[i] == to_find) return i;
 	}
 	return -1;
@@ -54,7 +55,7 @@ static void resizeIntArray(IntArray* arr, size_t new_size) {
 	arr->__data = realloc(arr->__data, arr->__size * sizeof(int));
 }
 
-static void intAppendIntArray(IntArray* arr, int* app, int app_len) {
+static void intAppendIntArray(IntArray* arr, int* app, size_t app_len) {
 	if (arr->__size < arr->__end + app_len) {
 		resizeIntArray(arr, arr->__end + app_len);
 	}
@@ -69,7 +70,7 @@ static void intArrayAppendIntArray(IntArray* arr, IntArray* app) {
 	intAppendIntArray(arr, app->__data, app->__end);
 }
 
-static IntArray* createSubsequence(IntArray* arr, size_t begindex, size_t endex) {
+static IntArray* createIntArraySubsequence(IntArray* arr, size_t begindex, size_t endex) {
 	IntArray* new_arr = (IntArray*)(malloc(sizeof(IntArray)));
 
 	resizeIntArray(new_arr, endex - begindex);
@@ -82,7 +83,7 @@ static IntArray* createSubsequence(IntArray* arr, size_t begindex, size_t endex)
 
 	return new_arr;
 }
-///
+/// ///
 
 
 /// CONSTRUCTORS & DESTRUCTORS ///
